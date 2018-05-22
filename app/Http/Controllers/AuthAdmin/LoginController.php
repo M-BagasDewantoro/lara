@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AuthAdmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\request;
 use Illuminate\Support\Facades\Auth;
+use App\admin;
 
 class LoginController extends Controller
 {
@@ -64,5 +65,20 @@ class LoginController extends Controller
         }
         //if Unsuccesful, then redirect back to the login with the form data
         return redirect()->back()->withInput($request->only('email','remember'));
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::guard('admin')->logout();
+
+//        $request->session()->invalidate();
+
+        return redirect('/');
     }
 }
